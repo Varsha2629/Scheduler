@@ -10,6 +10,15 @@ const useApplicationData = () => {
   });
   const setDay = (day) => setState({ ...state, day });
 
+  const getSpotsByDay = (id, state) => {
+    const selectedDay = state.days.filter((day) => {
+      return day.appointments.includes(id);
+    });
+    console.log("selectedDay", selectedDay);
+    console.log("spots", selectedDay[0].spots);
+    return selectedDay[0].spots;
+  };
+  
   const bookInterview = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
@@ -19,18 +28,13 @@ const useApplicationData = () => {
       ...state.appointments,
       [id]: appointment,
     };
-
-    setState({
-      ...state,
-      appointments,
-    });
-
+    console.log("bookInterview", id);
     return axios
       .put(`/api/appointments/${id}`, { interview })
       .then((response) => {
+        getSpotsByDay(id, { ...state, appointments });
         return setState({ ...state, appointments });
-      })
-      .catch((err) => console.log("204 NoContent response", err));
+      });
   };
 
   const cancelInterview = (id) => {
@@ -48,12 +52,25 @@ const useApplicationData = () => {
       appointments,
     });
 
-    return axios
-      .delete(`/api/appointments/${id}`)
-      .then((response) => {
-        return setState({ ...state, appointments });
-      })
-      .catch((err) => console.log(err));
+    return axios.delete(`/api/appointments/${id}`).then((response) => {
+      getSpotsByDay(id, { ...state, appointments });
+      return setState({ ...state, appointments });
+    });
+    // .then(data => {
+
+    //   return setState((prev) => {
+    //     const {spots, selectedDay} = findSpotsByday(id, prev);
+    //     return {...prev,
+    //       days: [
+    //         ...prev.days.slice(0, selectedDay),
+    //         {
+    //           ...prev.days[selectedDay],
+    //           spots: spots
+    //         },
+    //         ...prev.days.slice(selectedDay + 1)
+    //       ]
+    //     }});
+    // })
   };
 
   useEffect(() => {

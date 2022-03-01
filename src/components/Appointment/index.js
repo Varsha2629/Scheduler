@@ -13,11 +13,12 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
+const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
-const DELETE = "DELETE";
 const DELETEING = "DELETEING";
 const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
+
 
 const Appointment = (props) => {
   const { mode, transition, back } = useVisualMode(
@@ -30,19 +31,18 @@ const Appointment = (props) => {
       interviewer,
     };
     transition(SAVING);
-    props
-      .bookInterview(props.id, interview)
+    props.bookInterview(props.id, interview)
       .then(() => transition(SHOW))
       .catch((error) => transition(ERROR_SAVE, true));
   };
 
-  const del = () => {
-    transition(DELETEING);
-    props
-      .cancelInterview(props.id)
+  const del = (event) => {
+    transition(DELETEING, true);
+    props.cancelInterview(props.id)
       .then(() => transition(EMPTY))
       .catch((error) => transition(ERROR_DELETE, true));
   };
+  
   return (
     <article className="appointment">
       <Header time={props.time} />
@@ -52,7 +52,7 @@ const Appointment = (props) => {
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onEdit={() => transition(EDIT)}
-          onDelete={() => transition(DELETE)}
+          onDelete={() => transition(CONFIRM)}
         />
       )}
       {mode === CREATE && (
@@ -72,8 +72,8 @@ const Appointment = (props) => {
           onCancel={() => back()}
         />
       )}
-      {mode === DELETE && <Confirm onConfirm={del} onCancel={() => back()} />}
-      {mode === DELETEING && <Status message="Cancling" />}
+      {mode === CONFIRM && <Confirm message="Are you sure you would like to delete?" onConfirm={del} onCancel={() => back()} />}
+      {mode === DELETEING && <Status message="Deleting" />}
       {mode === ERROR_DELETE && (
         <Error message="Could not cancel appointment" onClose={() => back()} />
       )}
