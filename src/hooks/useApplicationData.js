@@ -10,14 +10,16 @@ const useApplicationData = () => {
   });
   const setDay = (day) => setState({ ...state, day });
 
-  const getSpotsByDay = (id, state) => {
-    const selectedDay = state.days.filter((day) => {
-      return day.appointments.includes(id);
-    });
-    console.log("selectedDay", selectedDay);
-    console.log("spots", selectedDay[0].spots);
-    return selectedDay[0].spots;
-  };
+   const spotCounter = (action) => {
+      const copyDays =  [...state.days];
+      const modifier = action === 'book' ? -1 : 1;
+      for(let day in copyDays){
+        if(copyDays[day].name === state.day){
+          copyDays[day].spots += modifier;
+         }
+      }
+      return copyDays;
+  }
   
   const bookInterview = (id, interview) => {
     const appointment = {
@@ -28,11 +30,13 @@ const useApplicationData = () => {
       ...state.appointments,
       [id]: appointment,
     };
-    console.log("bookInterview", id);
+    spotCounter('book')
+    
     return axios
       .put(`/api/appointments/${id}`, { interview })
       .then((response) => {
-        getSpotsByDay(id, { ...state, appointments });
+        // getSpotsByDay(id, { ...state, appointments });
+
         return setState({ ...state, appointments });
       });
   };
@@ -53,7 +57,7 @@ const useApplicationData = () => {
     });
 
     return axios.delete(`/api/appointments/${id}`).then((response) => {
-      getSpotsByDay(id, { ...state, appointments });
+      // getSpotsByDay(id, { ...state, appointments });
       return setState({ ...state, appointments });
     });
     // .then(data => {
