@@ -12,6 +12,7 @@ const useApplicationData = () => {
 
    const spotCounter = (action) => {
       const copyDays =  [...state.days];
+    
       const modifier = action === 'book' ? -1 : 1;
       for(let day in copyDays){
         if(copyDays[day].name === state.day){
@@ -21,7 +22,7 @@ const useApplicationData = () => {
       return copyDays;
   }
   
-  const bookInterview = (id, interview) => {
+  const bookInterview = (id, interview, isEdit) => {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
@@ -30,7 +31,11 @@ const useApplicationData = () => {
       ...state.appointments,
       [id]: appointment,
     };
-    spotCounter('book')
+    
+    if(!isEdit) {
+      spotCounter('book');
+    }
+   
     
     return axios
       .put(`/api/appointments/${id}`, { interview })
@@ -50,12 +55,13 @@ const useApplicationData = () => {
       ...state.appointments,
       [id]: appointment,
     };
-    console.log("id", id);
+    
     setState({
       ...state,
       appointments,
     });
 
+    spotCounter('cancle');
     return axios.delete(`/api/appointments/${id}`).then((response) => {
       // getSpotsByDay(id, { ...state, appointments });
       return setState({ ...state, appointments });

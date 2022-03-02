@@ -19,12 +19,14 @@ const Form = (props) => {
 
   const validate = () => {
     if (student === "") {
-      setError("Student name cannot be blank");
+      setError("Student name cannot be blank");     
       return;
     }
-  
-    props.onSave(student, interviewer);
+   
+    setError("");
+    props.onSave(student, interviewer, props.isEdit);
   }
+  
   
 return (
 <main className="appointment__card appointment__card--create">

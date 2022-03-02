@@ -21,17 +21,19 @@ const ERROR_DELETE = "ERROR_DELETE";
 
 
 const Appointment = (props) => {
+
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
 
-  const save = (name, interviewer) => {
+  const save = (name, interviewer, isEdit) => {
     const interview = {
       student: name,
       interviewer,
     };
+    
     transition(SAVING);
-    props.bookInterview(props.id, interview)
+    props.bookInterview(props.id, interview, isEdit)
       .then(() => transition(SHOW))
       .catch((error) => transition(ERROR_SAVE, true));
   };
@@ -59,6 +61,7 @@ const Appointment = (props) => {
         <Form
           interviewers={props.interviewers}
           onSave={save}
+          isEdit={false}
           onCancel={() => back()}
         />
       )}
@@ -66,6 +69,7 @@ const Appointment = (props) => {
       {mode === EDIT && (
         <Form
           onSave={save}
+          isEdit={true}
           student={props.interview.student}
           interviewer={props.interview.interviewer.id}
           interviewers={props.interviewers}
