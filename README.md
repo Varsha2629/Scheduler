@@ -7,6 +7,10 @@ Install dependencies with `npm install`.
 ## Running Webpack Development Server
 
 ```sh
+cd scheduler-api
+```
+
+```sh
 npm start
 ```
 
@@ -16,8 +20,8 @@ npm start
 npm test
 ```
 
-## Running Storybook Visual Testbed
+## Running App on localhost:8000
 
 ```sh
-npm run storybook
+npm start
 ```
