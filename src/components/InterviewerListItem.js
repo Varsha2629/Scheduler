@@ -13,7 +13,7 @@ const InterviewerListItem = (props) => {
         <li className={interviewer} onClick={props.setInterviewer}>
             <img className="interviewers__item-image" src={props.avatar}
               alt={props.name} />
-             {props.selected && props.name}
+             {props.selected ? props.name : null}
         </li>    
     );
 }
