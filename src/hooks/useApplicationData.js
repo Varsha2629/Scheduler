@@ -63,24 +63,10 @@ const useApplicationData = () => {
 
     spotCounter('cancle');
     return axios.delete(`/api/appointments/${id}`).then((response) => {
-      // getSpotsByDay(id, { ...state, appointments });
+      
       return setState({ ...state, appointments });
     });
-    // .then(data => {
-
-    //   return setState((prev) => {
-    //     const {spots, selectedDay} = findSpotsByday(id, prev);
-    //     return {...prev,
-    //       days: [
-    //         ...prev.days.slice(0, selectedDay),
-    //         {
-    //           ...prev.days[selectedDay],
-    //           spots: spots
-    //         },
-    //         ...prev.days.slice(selectedDay + 1)
-    //       ]
-    //     }});
-    // })
+  
   };
 
   useEffect(() => {
