@@ -1,14 +1,18 @@
 # Interview Scheduler
 
+# Screenshots
+
+!["screenshot description"]()
+!["screenshot description"]()
+!["screenshot description"]()
+
+- if you wanna more Screenshot, it is in docs directory.
+
 ## Setup
 
 Install dependencies with `npm install`.
 
 ## Running Webpack Development Server
-
-```sh
-cd scheduler-api
-```
 
 ```sh
 npm start
@@ -20,8 +24,13 @@ npm start
 npm test
 ```
 
-## Running App on localhost:8000
+## Running Storybook Visual Testbed
 
 ```sh
-npm start
+npm run storybook
 ```
+## Dependencies
+
+- Axios
+- @testing-library/react-hooks
+- react-test-renderer
