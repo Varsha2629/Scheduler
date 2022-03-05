@@ -17,10 +17,16 @@ const Form = (props) => {
   };
 
   const validate = () => {
+    if(interviewer === null) {
+      setError("You must have to select interviewer");
+      return;
+    }
+
     if (student === "") {
       setError("Student name cannot be blank");
       return;
     }
+
 
     setError("");
     props.onSave(student, interviewer, props.isEdit);

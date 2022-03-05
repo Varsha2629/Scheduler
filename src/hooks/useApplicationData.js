@@ -55,11 +55,6 @@ const useApplicationData = () => {
       [id]: appointment,
     };
 
-    setState({
-      ...state,
-      appointments,
-    });
-
     spotCounter("cancle");
     return axios.delete(`/api/appointments/${id}`).then((response) => {
       return setState({ ...state, appointments });
