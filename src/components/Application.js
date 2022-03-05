@@ -17,7 +17,6 @@ export default function Application() {
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day);
   const schedule = appointments.map((appointment) => {
-    // console.log(appointment)
     const interview = getInterview(state, appointment.interview);
 
     return (
@@ -33,7 +32,6 @@ export default function Application() {
     );
   });
 
-  
   return (
     <main className="layout">
       <section className="sidebar">

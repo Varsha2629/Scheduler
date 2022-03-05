@@ -10,18 +10,18 @@ const useApplicationData = () => {
   });
   const setDay = (day) => setState({ ...state, day });
 
-   const spotCounter = (action) => {
-      const copyDays =  [...state.days];
-    
-      const modifier = action === 'book' ? -1 : 1;
-      for(let day in copyDays){
-        if(copyDays[day].name === state.day){
-          copyDays[day].spots += modifier;
-         }
+  const spotCounter = (action) => {
+    const copyDays = [...state.days];
+
+    const modifier = action === "book" ? -1 : 1;
+    for (let day in copyDays) {
+      if (copyDays[day].name === state.day) {
+        copyDays[day].spots += modifier;
       }
-      return copyDays;
-  }
-  
+    }
+    return copyDays;
+  };
+
   const bookInterview = (id, interview, isEdit) => {
     const appointment = {
       ...state.appointments[id],
@@ -31,12 +31,11 @@ const useApplicationData = () => {
       ...state.appointments,
       [id]: appointment,
     };
-    
-    if(!isEdit) {
-      spotCounter('book');
+
+    if (!isEdit) {
+      spotCounter("book");
     }
-   
-    
+
     return axios
       .put(`/api/appointments/${id}`, { interview })
       .then((response) => {
@@ -55,18 +54,16 @@ const useApplicationData = () => {
       ...state.appointments,
       [id]: appointment,
     };
-    
+
     setState({
       ...state,
       appointments,
     });
 
-    spotCounter('cancle');
+    spotCounter("cancle");
     return axios.delete(`/api/appointments/${id}`).then((response) => {
-      
       return setState({ ...state, appointments });
     });
-  
   };
 
   useEffect(() => {
@@ -75,7 +72,6 @@ const useApplicationData = () => {
       axios.get("/api/appointments"),
       axios.get("/api/interviewers"),
     ]).then((response) => {
-      // console.log(response[2].data)
       setState((prev) => ({
         ...prev,
         days: response[0].data,

@@ -36,4 +36,3 @@ npm run storybook
 - react-dom
 - axios
 - @testing-library/react-hooks
-- react-test-renderer
