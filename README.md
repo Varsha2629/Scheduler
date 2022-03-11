@@ -3,9 +3,9 @@
 
 # Screenshots
 
-!["screenshot description"](https://github.com/Varsha2629/Scheduler/blob/master/docs/Scheduler-home-page.png)
-!["screenshot description"](https://github.com/Varsha2629/Scheduler/blob/master/docs/Book-interview-form.png)
-!["screenshot description"](https://github.com/Varsha2629/Scheduler/blob/master/docs/Saving-form.png)
+!["screenshot description"](https://github.com/Varsha2629/Scheduler/blob/master/Images/Scheduler-home-page.png)
+!["screenshot description"](https://github.com/Varsha2629/Scheduler/blob/master/Images/Book-interview-form.png)
+!["screenshot description"](https://github.com/Varsha2629/Scheduler/blob/master/Images/Saving-form.png)
 
 - if you wanna more screenshots, it is in docs directory.
 
